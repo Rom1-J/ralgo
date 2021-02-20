@@ -20,7 +20,7 @@ class Compress:
             i += 1
 
     def __gen_output(self) -> str:
-        return ''.join(str(i) for i in self.parts)
+        return "".join(str(i) for i in self.parts)
 
     def compress(self, message: str) -> str:
         self.message = message
