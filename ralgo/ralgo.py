@@ -23,9 +23,14 @@ class Ralgo(Encoder, Decoder):
         chars: tuple = (".", ","),
         depth: int = None,
         bits: int = None,
+        is_bytes: bool = False,
     ) -> str:
         return super().decode(
-            message=message, chars=chars, depth=depth, bits=bits
+            message=message,
+            chars=chars,
+            depth=depth,
+            bits=bits,
+            is_bytes=is_bytes,
         )
 
     @staticmethod

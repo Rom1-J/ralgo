@@ -1,3 +1,4 @@
+from base64 import b64encode
 from typing import Union
 
 import numpy as np
@@ -95,7 +96,11 @@ class Encoder:
         depth: int,
         bits: int,
     ) -> str:
-        self.message = message.replace(" ", chr(1))
+        self.message = (
+            message.replace(" ", chr(1))
+            if isinstance(message, str)
+            else b64encode(message).decode()
+        )
         self.chars = chars
 
         self.__set_letters(self.message)

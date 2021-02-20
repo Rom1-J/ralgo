@@ -1,4 +1,5 @@
 import re
+from base64 import b64decode
 from typing import Union
 
 import numpy as np
@@ -53,6 +54,8 @@ class Decoder:
             else:
                 words[word].append(part)
 
+        print(words)
+
         return words[:-1]
 
     def __fill_layers(self, word: list[str]) -> np.ndarray:
@@ -83,6 +86,7 @@ class Decoder:
         chars: tuple,
         depth: int,
         bits: int,
+        is_bytes: bool,
     ) -> str:
         self.message = message
         self.chars = chars
@@ -96,4 +100,8 @@ class Decoder:
             self.__convert_layer(self.__fill_layers(word))
             self.output += " "
 
-        return self.output.strip()
+        return (
+            b64decode(self.output.strip().encode())
+            if is_bytes
+            else self.output.strip()
+        )

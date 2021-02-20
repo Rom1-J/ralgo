@@ -1,7 +1,7 @@
 from faker import Faker
 
 from ralgo.ralgo import Ralgo
-from ralgo.exceptions import DepthError, BitsError, DecodeError
+from ralgo.exceptions import DecodeError
 
 fake = Faker()
 
