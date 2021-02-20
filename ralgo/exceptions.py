@@ -34,3 +34,14 @@ class DecodeError(RalgoException):
 
         self.expression = expression
         self.message = message
+
+
+class DecompressParseError(RalgoException):
+    """Exception that is thrown when an error occurred during parsing
+    of compressed ralgo."""
+
+    def __init__(self, expression: str = "", message: str = ""):
+        super().__init__(message)
+
+        self.expression = expression
+        self.message = message

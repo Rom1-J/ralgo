@@ -1,5 +1,6 @@
 from ralgo.decoder import Decoder
 from ralgo.encoder import Encoder
+from ralgo.ext import compressor
 
 
 class Ralgo(Encoder, Decoder):
@@ -24,3 +25,11 @@ class Ralgo(Encoder, Decoder):
         return super().decode(
             message=message, chars=chars, depth=depth, bits=bits
         )
+
+    @staticmethod
+    def compress(message: str) -> str:
+        return compressor.Compress().compress(message)
+
+    @staticmethod
+    def decompress(message: str) -> str:
+        return compressor.Decompress().decompress(message)

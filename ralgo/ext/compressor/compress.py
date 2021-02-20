@@ -2,7 +2,6 @@ class Compress:
     message: str
 
     parts: list
-    output: str
 
     def __fill_parts(self) -> None:
         self.parts = [1]
@@ -20,7 +19,15 @@ class Compress:
             i += 1
 
     def __gen_output(self) -> str:
-        return "".join(str(i) for i in self.parts)
+        output = ""
+
+        for part in self.parts:
+            if part < 10:
+                output += str(part)
+            else:
+                output += f"{{{part}}}"
+
+        return output
 
     def compress(self, message: str) -> str:
         self.message = message
