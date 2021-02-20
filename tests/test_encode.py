@@ -1,7 +1,7 @@
 from faker import Faker
 
 from ralgo.ralgo import Ralgo
-from ralgo.exceptions import DepthError
+from ralgo.exceptions import DepthError, BitsError
 from tests.asserts import contains_only
 
 fake = Faker()
@@ -80,3 +80,31 @@ def test_encode_depth():
         assert False
     except DepthError as e:
         assert "Given depth must be an int" == e.message
+
+
+def test_encode_bits():
+    message = "Salut"
+
+    encoded = Ralgo().encode(message, depth=7, bits=9)
+
+    assert encoded[:16] == "." * 7 + "," * 9
+
+    # =======================
+
+    message = "Salut"
+
+    try:
+        _ = Ralgo().encode(message, depth=7, bits=1)
+        assert False
+    except BitsError as e:
+        assert "Given bits is too low" == e.message
+
+    # =======================
+
+    message = "Salut"
+
+    try:
+        _ = Ralgo().encode(message, depth=7, bits="fail")
+        assert False
+    except BitsError as e:
+        assert "Given bits must be an int" == e.message
