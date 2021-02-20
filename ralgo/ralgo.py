@@ -1,3 +1,5 @@
+from typing import Union
+
 from ralgo.decoder import Decoder
 from ralgo.encoder import Encoder
 from ralgo.ext import compressor
@@ -6,7 +8,7 @@ from ralgo.ext import compressor
 class Ralgo(Encoder, Decoder):
     def encode(
         self,
-        message: str,
+        message: Union[str, bytes],  # pylint: disable=unsubscriptable-object
         chars: tuple = (".", ","),
         depth: int = None,
         bits: int = None,
@@ -17,7 +19,7 @@ class Ralgo(Encoder, Decoder):
 
     def decode(
         self,
-        message: str,
+        message: Union[str, bytes],  # pylint: disable=unsubscriptable-object
         chars: tuple = (".", ","),
         depth: int = None,
         bits: int = None,

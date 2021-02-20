@@ -1,3 +1,5 @@
+from typing import Union
+
 import numpy as np
 import sympy as sp
 
@@ -86,7 +88,13 @@ class Encoder:
             )
             self.output += output
 
-    def encode(self, message: str, chars: tuple, depth: int, bits: int) -> str:
+    def encode(
+        self,
+        message: Union[str, bytes],  # pylint: disable=unsubscriptable-object
+        chars: tuple,
+        depth: int,
+        bits: int,
+    ) -> str:
         self.message = message.replace(" ", chr(1))
         self.chars = chars
 

@@ -1,3 +1,4 @@
+from ralgo.exceptions import DecompressParseError
 from ralgo.ralgo import Ralgo
 
 
@@ -16,3 +17,13 @@ def test_decompress_basic():
     decoded = Ralgo().decompress(message)
 
     assert decoded == ".,,,,,,,.........,.,..,,,.......,......,"
+
+
+def test_decompress_fails():
+    message = "*"
+
+    try:
+        _ = Ralgo().decompress(message)
+        assert False
+    except DecompressParseError as e:
+        assert "Failed on parsing given compressed text" == e.message

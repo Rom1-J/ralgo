@@ -26,7 +26,6 @@ class Decompress:
             else:
                 raise DecompressParseError(
                     message="Failed on parsing given compressed text",
-                    expression=self.message,
                 )
 
     def __gen_output(self) -> str:

@@ -42,3 +42,4 @@ build
 .ipython/
 .pytest_cache/
 .coverage
+htmlcov/

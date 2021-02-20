@@ -1,4 +1,6 @@
 import re
+from typing import Union
+
 import numpy as np
 
 from ralgo.exceptions import DecodeError
@@ -75,7 +77,13 @@ class Decoder:
             else:
                 raise DecodeError(message="Failed to decode one layer")
 
-    def decode(self, message: str, chars: tuple, depth: int, bits: int) -> str:
+    def decode(
+        self,
+        message: Union[str, bytes],  # pylint: disable=unsubscriptable-object
+        chars: tuple,
+        depth: int,
+        bits: int,
+    ) -> str:
         self.message = message
         self.chars = chars
 

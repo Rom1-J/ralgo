@@ -31,7 +31,8 @@ lint:
 test:
 	pytest
 
-.PHONY: coverag
+.PHONY: coverage
 coverage:
 	coverage run -m pytest
-	coverage report
+	coverage report -m
+	coverage html

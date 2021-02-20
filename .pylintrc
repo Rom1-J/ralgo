@@ -12,4 +12,5 @@ disable=
 	C0114,  # missing-module-docstring
 	C0115,  # missing-class-docstring
 	C0116,  # missing-function-docstring
+	R0801,  # duplicate-code
 	R0903,  # too-few-public-methods
