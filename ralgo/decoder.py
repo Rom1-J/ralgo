@@ -54,8 +54,6 @@ class Decoder:
             else:
                 words[word].append(part)
 
-        print(words)
-
         return words[:-1]
 
     def __fill_layers(self, word: list[str]) -> np.ndarray:
