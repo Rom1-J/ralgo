@@ -4,6 +4,8 @@ good-names=
     f,  # (file) as f
     k,  # for k, v in
     v,  # for k, v in
+    i,  # for i in
+    j,  # for j in
 
 [MASTER]
 disable=

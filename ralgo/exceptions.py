@@ -24,3 +24,13 @@ class BitsError(RalgoException):
 
         self.expression = expression
         self.message = message
+
+
+class DecodeError(RalgoException):
+    """Exception that is thrown when an error occurred during decode."""
+
+    def __init__(self, expression: str = "", message: str = ""):
+        super().__init__(message)
+
+        self.expression = expression
+        self.message = message

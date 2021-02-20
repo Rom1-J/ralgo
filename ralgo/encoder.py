@@ -1,10 +1,7 @@
-from typing import NoReturn, Union
-
 import numpy as np
 import sympy as sp
 
-from ralgo.exceptions import DepthError, BitsError
-from ralgo.utils import encode_binary
+from ralgo.utils import encode_binary, clean_depth, clean_bits
 
 
 class Encoder:
@@ -16,7 +13,7 @@ class Encoder:
     letters: np.ndarray
     output: str
 
-    def _set_letters(self, message: str) -> None:
+    def __set_letters(self, message: str) -> None:
         letters = []
 
         for letter in message:
@@ -24,23 +21,23 @@ class Encoder:
 
         self.letters = np.array(letters, dtype=object)
 
-    def _get_depth(self) -> int:
+    def __get_depth(self) -> int:
         return max([len(i) for i in self.letters])
 
-    def _get_bits(self) -> int:
+    def __get_bits(self) -> int:
         max_bits = np.amax(self.letters)
         return int(
             max_bits[0] if isinstance(max_bits, list) else max_bits
         ).bit_length()
 
-    def _gen_key(self) -> None:
+    def __gen_key(self) -> None:
         self.output = (
             self.chars[0] * self.depth
             + self.chars[1] * self.bits
             + self.chars[0] * (self.bits + 1)
         )
 
-    def _fill_letters(self) -> None:
+    def __fill_letters(self) -> None:
         letters = []
 
         for primes in self.letters:
@@ -57,7 +54,7 @@ class Encoder:
 
         self.letters = np.array(letters, dtype=object)
 
-    def _fill_random(self) -> None:
+    def __fill_random(self) -> None:
         self.output += (
             self.chars[1]
             + "".join(
@@ -67,7 +64,7 @@ class Encoder:
             + self.chars[0]
         )
 
-    def _fill_words(self) -> np.ndarray:
+    def __fill_words(self) -> np.ndarray:
         words, word = [], []
 
         for primes in self.letters:
@@ -81,27 +78,7 @@ class Encoder:
 
         return np.array(words, dtype=object)
 
-    def _clean_depth(
-        self, depth: int
-    ) -> Union[NoReturn, bool]:  # pylint: disable=unsubscriptable-object
-        if not isinstance(depth, int):
-            raise DepthError(message="Given depth must be an int")
-        if self._get_depth() > depth:
-            raise DepthError(message="Given depth is too low")
-
-        return True
-
-    def _clean_bits(
-        self, bits: int
-    ) -> Union[NoReturn, bool]:  # pylint: disable=unsubscriptable-object
-        if not isinstance(bits, int):
-            raise BitsError(message="Given bits must be an int")
-        if self._get_depth() > bits:
-            raise BitsError(message="Given bits is too low")
-
-        return True
-
-    def _convert_layer(self, layer: np.ndarray) -> None:
+    def __convert_layer(self, layer: np.ndarray) -> None:
         for element in layer:
             binary = encode_binary(np.binary_repr(element[0]), self.chars)
             output = (
@@ -113,28 +90,21 @@ class Encoder:
         self.message = message.replace(" ", chr(1))
         self.chars = chars
 
-        self._set_letters(self.message)
+        self.__set_letters(self.message)
 
-        if not depth:
-            self.depth = self._get_depth()
-        elif self._clean_depth(depth):
-            self.depth = depth
+        self.depth = clean_depth(depth, self.__get_depth())
+        self.bits = clean_bits(bits, self.__get_bits())
 
-        if not bits:
-            self.bits = self._get_bits()
-        elif self._clean_bits(bits):
-            self.bits = bits
+        self.__fill_letters()
+        self.__gen_key()
 
-        self._fill_letters()
-        self._gen_key()
-
-        for word in self._fill_words():
+        for word in self.__fill_words():
             layers = np.hsplit(word, self.depth)
 
             for layer in layers:
-                self._convert_layer(layer)
+                self.__convert_layer(layer)
 
-                self._fill_random()
+                self.__fill_random()
             self.output += (
                 self.chars[1] + self.chars[0] * (self.bits - 1) + self.chars[1]
             )
