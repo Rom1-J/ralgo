@@ -1,10 +1,10 @@
-VIRTUAL_ENV := .venv
+VIRTUAL_ENV := venv
 PYTHON_PATH := $(VIRTUAL_ENV)/bin/python
 
 
 .PHONY: main
 main:
-	/bin/python -m venv .venv
+	/bin/python -m venv $(VIRTUAL_ENV)
 	$(VIRTUAL_ENV)/bin/pip install -U pip setuptools
 
 .PHONY: install
@@ -29,3 +29,9 @@ lint:
 
 .PHONY: test
 test:
+	pytest
+
+.PHONY: coverag
+coverage:
+	coverage run -m pytest
+	coverage report
