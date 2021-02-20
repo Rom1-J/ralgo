@@ -13,7 +13,7 @@ def test_convert_bytes():
 
 
 def test_convert_image():
-    with open('tests/bytes/image.png', 'rb') as f:
+    with open("tests/bytes/image.png", "rb") as f:
         message = f.read()
 
     encoded = Ralgo().encode(message)
@@ -23,7 +23,7 @@ def test_convert_image():
 
 
 def test_convert_file():
-    with open('tests/bytes/file.txt', 'rb') as f:
+    with open("tests/bytes/file.txt", "rb") as f:
         message = f.read()
 
     encoded = Ralgo().encode(message)
