@@ -22,9 +22,6 @@ class Ralgo(Encoder, Decoder, Square):
     def __bytes__(self):
         return self.statement
 
-    def __repr__(self):
-        return f"<Ralgo statement={self.statement}>"
-
     def __len__(self):
         return len(self.statement)
 

@@ -71,3 +71,13 @@ def test_decode_graphical_file():
     output = Ralgo(str(graphical.decode())).decode(is_bytes=True)
 
     assert bytes(output) == file
+
+
+def test_decode_graphical_fails():
+    try:
+        # noinspection PyTypeChecker
+        graphical = Ralgo(42).graphical()
+        _ = Ralgo(str(graphical.decode())).decode(is_bytes=True)
+        assert False
+    except NotImplementedError:
+        assert True

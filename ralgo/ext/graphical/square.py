@@ -19,15 +19,6 @@ class Square(SquareEncoder, SquareDecoder):
     def __str__(self):
         return self.statement
 
-    def __bytes__(self):
-        return self.statement
-
-    def __repr__(self):
-        return f"<Square statement={self.statement}>"
-
-    def __len__(self):
-        return len(self.statement)
-
     def encode(
         self,
         chars: tuple = (".", ","),
