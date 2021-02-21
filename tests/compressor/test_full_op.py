@@ -5,7 +5,7 @@ from ralgo.ralgo import Ralgo
 fake = Faker()
 
 
-def test_decompress_basic():
+def test_compressor_full_op():
     message = fake.text()
 
     encoded = Ralgo(message).encode()
