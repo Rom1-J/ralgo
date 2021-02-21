@@ -4,6 +4,7 @@ from typing import Union
 import numpy as np
 import sympy as sp
 
+from ralgo.exceptions import InvalidArgument
 from ralgo.utils import encode_binary, clean_depth, clean_bits
 
 
@@ -89,6 +90,19 @@ class Encoder:
             )
             self.output += output
 
+    def __load_message(self, message: Union[str, bytes]) -> str:
+        if isinstance(message, (str, int, float)):
+            self.message = str(message).replace(" ", chr(1))
+            return self.message
+        if isinstance(message, bytes):
+            self.message = b64encode(message).decode()
+            return self.message
+
+        raise InvalidArgument(
+            message="The data to work with must be of type str, int, "
+            "float or bytes"
+        )
+
     def encode(
         self,
         message: Union[str, bytes],
@@ -96,11 +110,7 @@ class Encoder:
         depth: int,
         bits: int,
     ) -> str:
-        self.message = (
-            message.replace(" ", chr(1))
-            if isinstance(message, str)
-            else b64encode(message).decode()
-        )
+        self.message = self.__load_message(message)
         self.chars = chars
 
         self.__set_letters(self.message)

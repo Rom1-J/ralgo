@@ -1,5 +1,6 @@
 from faker import Faker
 
+from ralgo.exceptions import InvalidArgument
 from ralgo.ralgo import Ralgo
 
 fake = Faker()
@@ -79,5 +80,8 @@ def test_decode_graphical_fails():
         graphical = Ralgo(42).graphical()
         _ = Ralgo(str(graphical.decode())).decode(is_bytes=True)
         assert False
-    except NotImplementedError:
-        assert True
+    except InvalidArgument as e:
+        assert (
+            e.message
+            == "The file must be given by path (str) or bytes (bytes)"
+        )

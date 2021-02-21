@@ -29,3 +29,9 @@ class DecompressParseError(RalgoException):
     of compressed ralgo."""
 
     message: str
+
+
+class InvalidArgument(RalgoException):
+    """Exception that is thrown when an invalid type is passed to Ralgo."""
+
+    message: str

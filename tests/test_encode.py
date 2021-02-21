@@ -1,7 +1,7 @@
 from faker import Faker
 
 from ralgo.ralgo import Ralgo
-from ralgo.exceptions import DepthError, BitsError
+from ralgo.exceptions import DepthError, BitsError, InvalidArgument
 from tests.asserts import contains_only
 
 fake = Faker()
@@ -110,3 +110,39 @@ def test_encode_bits():
         assert False
     except BitsError as e:
         assert "Given bits must be an int" == e.message
+
+
+def test_encode_fails():
+    try:
+        # noinspection PyTypeChecker
+        _ = Ralgo({3}).encode()
+        assert False
+    except InvalidArgument as e:
+        assert (
+            e.message
+            == "The data to work with must be of type str, int, float or bytes"
+        )
+
+    # =======================
+
+    try:
+        # noinspection PyTypeChecker
+        _ = Ralgo([42]).encode()
+        assert False
+    except InvalidArgument as e:
+        assert (
+            e.message
+            == "The data to work with must be of type str, int, float or bytes"
+        )
+
+    # =======================
+
+    try:
+        # noinspection PyTypeChecker
+        _ = Ralgo(bytearray(5)).encode()
+        assert False
+    except InvalidArgument as e:
+        assert (
+            e.message
+            == "The data to work with must be of type str, int, float or bytes"
+        )

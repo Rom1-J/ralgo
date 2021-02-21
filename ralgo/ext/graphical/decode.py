@@ -4,6 +4,8 @@ from typing import Union, NoReturn
 
 from PIL import Image
 
+from ralgo.exceptions import InvalidArgument
+
 
 class SquareDecoder:
     file: Union[str, bytes]
@@ -19,7 +21,9 @@ class SquareDecoder:
             self.image = Image.open(BytesIO(self.file))
             return self.image.size
 
-        raise NotImplementedError
+        raise InvalidArgument(
+            message="The file must be given by path (str) or bytes (bytes)"
+        )
 
     @staticmethod
     def __color2char(color):
