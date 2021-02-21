@@ -16,6 +16,18 @@ class Square(SquareEncoder, SquareDecoder):
     ):
         self.statement = statement
 
+    def __str__(self):
+        return self.statement
+
+    def __bytes__(self):
+        return self.statement
+
+    def __repr__(self):
+        return f"<Square statement={self.statement}>"
+
+    def __len__(self):
+        return len(self.statement)
+
     def encode(
         self,
         chars: tuple = (".", ","),
@@ -26,10 +38,8 @@ class Square(SquareEncoder, SquareDecoder):
 
     def decode(
         self,
-        file: Union[str, bytes],
-        is_bytes: bool = False,
     ) -> "Square":
-        self.statement = super().decode(file=self.statement, is_bytes=is_bytes)
+        self.statement = super().decode(file=self.statement)
 
         return self
 
