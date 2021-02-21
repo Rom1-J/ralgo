@@ -36,4 +36,3 @@ def test_encode_graphical_basic():
     assert img.size == (17, 17)
 
     os.remove(path)
-    

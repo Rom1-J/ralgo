@@ -9,6 +9,7 @@ from ralgo.ext.graphical.square import Square
 class Ralgo(Encoder, Decoder, Square):
     statement: Union[str, bytes, "Ralgo"]
 
+    # noinspection PyMissingConstructor
     def __init__(
         self,
         statement: Union[str, bytes, "Ralgo"],

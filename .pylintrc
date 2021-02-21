@@ -17,3 +17,4 @@ disable=
 	R0903,  # too-few-public-methods
 	R0913,  # too-many-arguments
 	W0221,  # arguments-differ
+	W0231,  # super-init-not-called

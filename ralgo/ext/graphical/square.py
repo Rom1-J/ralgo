@@ -11,23 +11,23 @@ class Square(SquareEncoder, SquareDecoder):
     statement: Union[str, bytes, "Square"]
 
     def __init__(
-            self,
-            statement: Union[str, bytes, "Square"],
+        self,
+        statement: Union[str, bytes, "Square"],
     ):
         self.statement = statement
 
     def encode(
-            self,
-            chars: tuple = (".", ","),
+        self,
+        chars: tuple = (".", ","),
     ) -> "Square":
         self.statement = super().encode(message=self.statement, chars=chars)
 
         return self
 
     def decode(
-            self,
-            file: Union[str, bytes],
-            is_bytes: bool = False,
+        self,
+        file: Union[str, bytes],
+        is_bytes: bool = False,
     ) -> "Square":
         self.statement = super().decode(file=self.statement, is_bytes=is_bytes)
 
