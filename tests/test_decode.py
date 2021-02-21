@@ -8,62 +8,66 @@ fake = Faker()
 
 def test_decode_basic():
     message = ".....,,,,,,,...............,.......,......,,.......,.......,,.,............,.,,....,......,.......,,.......,,.....,..,.,..,,.......,......,,.......,...,,,.,,.....,........,.......,......,,....,,.,......,.,..............,.......,......,.......,,......,.,.....,.,......,"
-    decoded = Ralgo().decode(message)
+    decoded = Ralgo(message).decode()
 
-    assert decoded == "Salut"
+    assert str(decoded) == "Salut"
 
     # =======================
 
     message = ".,,,,,,,.........,.,..,,,.......,......,"
-    decoded = Ralgo().decode(message)
+    decoded = Ralgo(message).decode()
 
-    assert decoded == "S"
+    assert str(decoded) == "S"
 
     # =======================
 
     message = fake.text()
-    encoded = Ralgo().encode(message)
 
-    assert message == Ralgo().decode(encoded)
+    encoded = Ralgo(message).encode()
+    decoded = encoded.decode()
+
+    assert str(decoded) == message
 
 
 def test_decode_chars():
     message = "*****-------***************-*******-******--*******-*******--*-************-*--****-******-*******--*******--*****-**-*-**--*******-******--*******-***---*--*****-********-*******-******--****--*-******-*-**************-*******-******-*******--******-*-*****-*-******-"
     chars = ("*", "-")
-    decoded = Ralgo().decode(message, chars=chars)
+    decoded = Ralgo(message).decode(chars=chars)
 
-    assert decoded == "Salut"
+    assert str(decoded) == "Salut"
 
     # =======================
 
     message = "0111111100000000010100111000000010000001"
     chars = ("0", "1")
-    decoded = Ralgo().decode(message, chars=chars)
+    decoded = Ralgo(message).decode(chars=chars)
 
-    assert decoded == "S"
+    assert str(decoded) == "S"
 
     # =======================
 
     message = fake.text()
     chars = ("-", "—")
-    encoded = Ralgo().encode(message, chars=chars)
 
-    assert message == Ralgo().decode(encoded, chars=chars)
+    encoded = Ralgo(message).encode(chars=chars)
+    decoded = encoded.decode(chars=chars)
+
+    assert str(decoded) == message
 
 
 def test_decode_depth():
     message = ".........,,,,,,,...............,.......,......,,.......,......,.,....,.........,.,,....,......,,.......,.......,,....,.........,.......,.......,.......,.......,,,.,..,........,.......,......,.......,,.......,,,.............,.......,.......,....,,.,...,,,.,,..............,.......,......,.......,,.......,,....,.........,.......,.......,.......,.......,,,.,.....,.,..,,.......,.......,.......,......,.,.....,........,.......,......,,.......,.......,,.......,......,"
 
-    decoded = Ralgo().decode(message, depth=9)
+    decoded = Ralgo(message).decode(depth=9)
 
-    assert decoded == "Salut"
+    assert str(decoded) == "Salut"
 
     # =======================
 
     message = ".,,,,,,,...............,.......,......,,.......,......,.,....,.........,.,,....,......,,.......,.......,,....,.........,.......,.......,.......,.......,,,.,..,........,.......,......,.......,,.......,,,.............,.......,.......,....,,.,...,,,.,,..............,.......,......,.......,,.......,,....,.........,.......,.......,.......,.......,,,.,.....,.,..,,.......,.......,.......,......,.,.....,........,.......,......,,.......,.......,,.......,......,"
 
     try:
-        _ = Ralgo().decode(message)
+        _ = Ralgo(message).decode()
         assert False
     except DecodeError as e:
         assert "Failed to decode one layer" == e.message
@@ -72,31 +76,35 @@ def test_decode_depth():
 
     message = fake.text()
     depth = 12
-    encoded = Ralgo().encode(message, depth=depth)
 
-    assert message == Ralgo().decode(encoded, depth=depth)
+    encoded = Ralgo(message).encode(depth=depth)
+    decoded = encoded.decode(depth=depth)
+
+    assert str(decoded) == message
 
 
 def test_decode_bits():
     message = ".......,,,,,,,,,...................,.........,.........,........,,........,.,......,...........,.........,........,..........,.....,,,.,,..................,.........,........,.........,,.........,,....,.............,.........,........,,.........,........,.,............,.,..,,.........,........,,.........,.........,,.......,..........,.........,.........,.........,.........,,,....,............,...,,....,........,,......,,.,.........,,..,....,.,........,"
 
-    decoded = Ralgo().decode(message, depth=7, bits=9)
+    decoded = Ralgo(message).decode(depth=7, bits=9)
 
-    assert decoded == "Salut"
+    assert str(decoded) == "Salut"
 
     # =======================
 
     message = ".......,,,,,,,,...................,.........,.........,........,,........,.,......,...........,.........,........,..........,.....,,,.,,..................,.........,........,.........,,.........,,....,.............,.........,........,,.........,........,.,............,.,..,,.........,........,,.........,.........,,.......,..........,.........,.........,.........,.........,,,....,............,...,,....,........,,......,,.,.........,,..,....,.,........,"
 
-    decoded = Ralgo().decode(message)
+    decoded = Ralgo(message).decode()
 
-    assert decoded == ""
+    assert str(decoded) == ""
 
     # =======================
 
     message = fake.text()
     depth = 12
     bits = 42
-    encoded = Ralgo().encode(message, depth=depth, bits=bits)
 
-    assert message == Ralgo().decode(encoded, depth=depth, bits=bits)
+    encoded = Ralgo(message).encode(depth=depth, bits=bits)
+    decoded = encoded.decode(depth=depth, bits=bits)
+
+    assert str(decoded) == message

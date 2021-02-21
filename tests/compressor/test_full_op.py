@@ -8,10 +8,15 @@ fake = Faker()
 def test_decompress_basic():
     message = fake.text()
 
-    encoded = Ralgo().encode(message)
-    compressed = Ralgo().compress(encoded)
+    encoded = Ralgo(message).encode()
+    compressed = encoded.compress()
 
-    decompressed = Ralgo().decompress(compressed)
-    decoded = Ralgo().decode(decompressed)
+    decompressed = compressed.decompress()
+    decoded = decompressed.decode()
 
-    assert decoded == message
+    assert str(decoded) == message
+
+    assert (
+        str(Ralgo(message).encode().compress().decompress().decode())
+        == message
+    )
