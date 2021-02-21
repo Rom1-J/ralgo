@@ -1,3 +1,4 @@
+import math
 import os
 
 from PIL import Image
@@ -27,12 +28,16 @@ def test_encode_graphical_basic():
     message = fake.text()
     path = f"tests/graphical/tmp/{fake.pyint()}.png"
 
-    encoded = Ralgo(message).encode().graphical().encode()
+    encoded = Ralgo(message).encode()
+    graphical = encoded.graphical().encode()
 
-    encoded.save(path)
+    graphical.save(path)
 
     img = Image.open(path)
 
-    assert img.size == (17, 17)
+    assert img.size == (
+        math.ceil(math.sqrt(len(encoded))),
+        math.ceil(math.sqrt(len(encoded))),
+    )
 
     os.remove(path)
