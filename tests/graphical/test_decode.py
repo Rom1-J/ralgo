@@ -1,6 +1,6 @@
 from faker import Faker
 
-from ralgo.exceptions import InvalidArgument
+from ralgo.exceptions import InvalidArgument, InvalidImage
 from ralgo.ralgo import Ralgo
 
 fake = Faker()
@@ -84,4 +84,16 @@ def test_decode_graphical_fails():
         assert (
             e.message
             == "The file must be given by path (str) or bytes (bytes)"
+        )
+
+    # =======================
+
+    try:
+        graphical = Ralgo("tests/graphical/files/42.jpeg").graphical()
+        _ = Ralgo(str(graphical.decode())).decode()
+        assert False
+    except InvalidImage as e:
+        assert (
+                e.message
+                == "The given image has an invalid size"
         )

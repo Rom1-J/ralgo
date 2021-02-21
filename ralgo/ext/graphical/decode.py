@@ -4,7 +4,7 @@ from typing import Union, NoReturn
 
 from PIL import Image
 
-from ralgo.exceptions import InvalidArgument
+from ralgo.exceptions import InvalidArgument, InvalidImage
 
 
 class SquareDecoder:
@@ -16,7 +16,9 @@ class SquareDecoder:
     def __load_file(self) -> Union[tuple, NoReturn]:
         if isinstance(self.file, str):
             self.image = Image.open(self.file)
-            return self.image.size
+            if self.image.size[0] == self.image.size[1]:
+                return self.image.size
+            raise InvalidImage(message="The given image has an invalid size")
         if isinstance(self.file, bytes):
             self.image = Image.open(BytesIO(self.file))
             return self.image.size

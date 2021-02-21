@@ -35,3 +35,9 @@ class InvalidArgument(RalgoException):
     """Exception that is thrown when an invalid type is passed to Ralgo."""
 
     message: str
+
+
+class InvalidImage(RalgoException):
+    """Exception that is thrown when an invalid image is passed to decode."""
+
+    message: str
