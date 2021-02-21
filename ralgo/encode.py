@@ -91,7 +91,7 @@ class Encoder:
 
     def encode(
         self,
-        message: Union[str, bytes],  # pylint: disable=unsubscriptable-object
+        message: Union[str, bytes],
         chars: tuple,
         depth: int,
         bits: int,

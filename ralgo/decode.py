@@ -80,7 +80,7 @@ class Decoder:
 
     def decode(
         self,
-        message: Union[str, bytes],  # pylint: disable=unsubscriptable-object
+        message: Union[str, bytes],
         chars: tuple,
         depth: int,
         bits: int,

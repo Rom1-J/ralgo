@@ -1,42 +1,72 @@
 from typing import Union
 
-from ralgo.decoder import Decoder
-from ralgo.encoder import Encoder
+from ralgo.decode import Decoder
+from ralgo.encode import Encoder
 from ralgo.ext import compressor
+from ralgo.ext.graphical.square import Square
 
 
-class Ralgo(Encoder, Decoder):
+class Ralgo(Encoder, Decoder, Square):
+    statement: Union[str, bytes, "Ralgo"]
+
+    def __init__(
+        self,
+        statement: Union[str, bytes, "Ralgo"],
+    ):
+        self.statement = statement
+
+    def __str__(self):
+        return self.statement
+
+    def __bytes__(self):
+        return self.statement
+
+    def __repr__(self):
+        return f"<Ralgo statement={self.statement}>"
+
+    def __len__(self):
+        return len(self.statement)
+
     def encode(
         self,
-        message: Union[str, bytes],  # pylint: disable=unsubscriptable-object
         chars: tuple = (".", ","),
         depth: int = None,
         bits: int = None,
-    ) -> str:
-        return super().encode(
-            message=message, chars=chars, depth=depth, bits=bits
+    ) -> "Ralgo":
+        self.statement = super().encode(
+            message=self.statement, chars=chars, depth=depth, bits=bits
         )
+
+        return self
 
     def decode(
         self,
-        message: Union[str, bytes],  # pylint: disable=unsubscriptable-object
         chars: tuple = (".", ","),
         depth: int = None,
         bits: int = None,
         is_bytes: bool = False,
-    ) -> str:
-        return super().decode(
-            message=message,
+    ) -> "Ralgo":
+        self.statement = super().decode(
+            message=self.statement,
             chars=chars,
             depth=depth,
             bits=bits,
             is_bytes=is_bytes,
         )
 
-    @staticmethod
-    def compress(message: str) -> str:
-        return compressor.Compress().compress(message)
+        return self
 
-    @staticmethod
-    def decompress(message: str) -> str:
-        return compressor.Decompress().decompress(message)
+    def compress(self) -> "Ralgo":
+        self.statement = compressor.Compress().compress(self.statement)
+
+        return self
+
+    def decompress(self) -> "Ralgo":
+        self.statement = compressor.Decompress().decompress(
+            str(self.statement)
+        )
+
+        return self
+
+    def graphical(self) -> Square:
+        return Square(statement=self.statement)

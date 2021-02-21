@@ -13,9 +13,9 @@ def encode_binary(seq: str, replacements: tuple) -> str:
 
 
 def clean_depth(
-    depth: Union[None, int],  # pylint: disable=unsubscriptable-object
+    depth: Union[None, int],
     wanted_depth: int,
-) -> Union[NoReturn, int]:  # pylint: disable=unsubscriptable-object
+) -> Union[NoReturn, int]:
     if depth:
         if not isinstance(depth, int):
             raise DepthError(message="Given depth must be an int")
@@ -27,9 +27,9 @@ def clean_depth(
 
 
 def clean_bits(
-    bits: Union[None, int],  # pylint: disable=unsubscriptable-object
+    bits: Union[None, int],
     wanted_bits: int,
-) -> Union[NoReturn, int]:  # pylint: disable=unsubscriptable-object
+) -> Union[NoReturn, int]:
     if bits:
         if not isinstance(bits, int):
             raise BitsError(message="Given bits must be an int")
