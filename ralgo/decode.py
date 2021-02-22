@@ -5,7 +5,7 @@ from typing import Union
 import numpy as np
 
 from ralgo.exceptions import DecodeError
-from ralgo.utils import clean_depth, clean_bits, decode_binary
+from ralgo.utils import clean_depth, clean_bits, decode_binary, clean_chars
 
 
 class Decoder:
@@ -87,7 +87,7 @@ class Decoder:
         is_bytes: bool,
     ) -> str:
         self.message = message
-        self.chars = chars
+        self.chars = clean_chars(chars)
 
         self.depth = clean_depth(depth, self.__get_depth())
         self.bits = clean_bits(bits, self.__get_bits())

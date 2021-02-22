@@ -1,7 +1,7 @@
 from faker import Faker
 
 from ralgo.ralgo import Ralgo
-from ralgo.exceptions import DepthError, BitsError, InvalidArgument
+from ralgo.exceptions import DepthError, BitsError, InvalidArgument, CharsError
 from tests.asserts import contains_only
 
 fake = Faker()
@@ -52,6 +52,17 @@ def test_encode_chars():
     encoded = Ralgo(message).encode(chars=chars)
 
     assert contains_only(str(encoded), chars)
+
+    # =======================
+
+    message = fake.text()
+    chars = ("1", "1")
+
+    try:
+        _ = Ralgo(message).encode(chars=chars)
+        assert False
+    except CharsError as e:
+        assert "Given chars must not be the same" == e.message
 
 
 def test_encode_depth():

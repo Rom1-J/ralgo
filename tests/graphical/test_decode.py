@@ -93,7 +93,4 @@ def test_decode_graphical_fails():
         _ = Ralgo(str(graphical.decode())).decode()
         assert False
     except InvalidImage as e:
-        assert (
-                e.message
-                == "The given image has an invalid size"
-        )
+        assert e.message == "The given image has an invalid size"

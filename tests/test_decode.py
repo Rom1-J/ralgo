@@ -1,7 +1,7 @@
 from faker import Faker
 
 from ralgo.ralgo import Ralgo
-from ralgo.exceptions import DecodeError
+from ralgo.exceptions import DecodeError, CharsError
 
 fake = Faker()
 
@@ -53,6 +53,17 @@ def test_decode_chars():
     decoded = encoded.decode(chars=chars)
 
     assert str(decoded) == message
+
+    # =======================
+
+    message = "1" * 42
+    chars = ("1", "1")
+
+    try:
+        _ = Ralgo(message).encode(chars=chars)
+        assert False
+    except CharsError as e:
+        assert "Given chars must not be the same" == e.message
 
 
 def test_decode_depth():

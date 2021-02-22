@@ -6,6 +6,12 @@ class RalgoException(Exception):
         self.message = message
 
 
+class CharsError(RalgoException):
+    """Exception that is thrown when given chars are the same."""
+
+    message: str
+
+
 class DepthError(RalgoException):
     """Exception that is thrown when given depth value is too low."""
 

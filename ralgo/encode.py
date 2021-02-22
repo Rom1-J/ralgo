@@ -5,7 +5,7 @@ import numpy as np
 import sympy as sp
 
 from ralgo.exceptions import InvalidArgument
-from ralgo.utils import encode_binary, clean_depth, clean_bits
+from ralgo.utils import encode_binary, clean_depth, clean_bits, clean_chars
 
 
 class Encoder:
@@ -111,7 +111,7 @@ class Encoder:
         bits: int,
     ) -> str:
         self.message = self.__load_message(message)
-        self.chars = chars
+        self.chars = clean_chars(chars)
 
         self.__set_letters(self.message)
 

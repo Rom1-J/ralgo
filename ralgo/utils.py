@@ -1,6 +1,6 @@
 from typing import NoReturn, Union
 
-from ralgo.exceptions import DepthError, BitsError
+from ralgo.exceptions import DepthError, BitsError, CharsError
 
 
 def decode_binary(seq: str, replacements: tuple) -> int:
@@ -24,6 +24,14 @@ def clean_depth(
         return depth
 
     return wanted_depth
+
+
+def clean_chars(
+    chars: tuple,
+) -> Union[NoReturn, tuple]:
+    if chars[0] == chars[1]:
+        raise CharsError(message="Given chars must not be the same")
+    return chars
 
 
 def clean_bits(
