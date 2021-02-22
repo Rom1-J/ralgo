@@ -1,6 +1,8 @@
 import os
 from collections import namedtuple
 
+__version__ = '2.0.0a'
+
 build = os.popen("/usr/bin/git rev-parse --short HEAD").read().strip()
 info = os.popen('/usr/bin/git log -n 3 -s --format="%s"').read().strip()
 
@@ -11,7 +13,7 @@ version_info = VersionInfo(
     major=2, minor=0, micro=0, release_level="alpha", build=build, info=info
 )
 
-__version__ = "v{}.{}.{}-{}.{}".format(
+version_info = "v{}.{}.{}-{}.{}".format(
     version_info.major,
     version_info.minor,
     version_info.micro,
