@@ -71,6 +71,8 @@ $ make coverage
 
 **Question:** How does it work ?
 
-**Answer:** _todo..._
+**Answer:**
+
+[Refer to this pdf](https://github.com/Rom1-J/ralgo/blob/master/docs/explain.pdf)
 
 ##
