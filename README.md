@@ -26,7 +26,9 @@ Ralgo requires [Python](https://python.org/) 3.9+.
 
 Install as a package
 
-_todo..._
+```sh
+$ pip install git+https://github.com/Rom1-J/ralgo
+```
 
 Install from sources
 

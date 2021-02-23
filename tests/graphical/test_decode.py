@@ -1,15 +1,7 @@
-from base64 import b64decode
-
 from faker import Faker
 
 from ralgo.exceptions import InvalidArgument, InvalidImage
 from ralgo.ralgo import Ralgo
-
-from rich.console import Console
-from rich.traceback import install
-
-console = Console()
-install(console=console, show_locals=True)
 
 fake = Faker()
 
