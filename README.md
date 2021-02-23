@@ -1,7 +1,7 @@
 ![Python 3.9 & 3.10](https://img.shields.io/badge/python-3.9%20%7C%203.10-%23007ec6)
 [![Code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://pypi.org/project/black/)
 [![Tests](https://github.com/Rom1-J/ralgo/workflows/tests/badge.svg)](https://github.com/Rom1-J/ralgo/actions?query=workflow%3Atests)
-[![Type](https://github.com/Rom1-J/ralgo/workflows/mypy/badge.svg)](https://github.com/Rom1-J/ralgo/actions?query=workflow%3Amypy)
+[![Style](https://github.com/Rom1-J/ralgo/workflows/style/badge.svg)](https://github.com/Rom1-J/ralgo/actions?query=workflow%3Astyle)
 
 # Ralgo
 
