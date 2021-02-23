@@ -5,14 +5,12 @@ from setuptools import setup
 with open("requirements.txt") as f:
     install_requires = f.read().split("\n")
 
-with open('ralgo/__init__.py') as f:
+with open("ralgo/__init__.py") as f:
     version = re.search(
-        r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
-        f.read(),
-        re.MULTILINE
+        r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE
     ).group(1)
 
-with open('README.md') as f:
+with open("README.md") as f:
     readme = f.read()
 
 setup(

@@ -16,9 +16,6 @@ class Square(SquareEncoder, SquareDecoder):
     ):
         self.statement = statement
 
-    def __str__(self):
-        return self.statement
-
     def encode(
         self,
         chars: tuple = (".", ","),

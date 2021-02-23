@@ -10,15 +10,15 @@ from ralgo.ralgo import Ralgo
 fake = Faker()
 
 
-def test_encode_graphical_basic():
+def test_encode_graphical_basic1():
     message = "Salut"
 
     _ = Ralgo(message).encode().graphical().encode()
 
     assert True  # this test should not fail
 
-    # =======================
 
+def test_encode_graphical_basic2():
     message = fake.text()
 
     encoded = Ralgo(message).encode()
@@ -27,7 +27,11 @@ def test_encode_graphical_basic():
     assert True  # this test should not fail
 
 
-def test_encode_graphical_save():
+# =======================
+# =======================
+
+
+def test_encode_graphical_save1():
     message = "Salut"
     path = f"tests/graphical/tmp/{fake.pyint()}.png"
 
@@ -41,8 +45,8 @@ def test_encode_graphical_save():
 
     os.remove(path)
 
-    # =======================
 
+def test_encode_graphical_save2():
     message = fake.text()
     path = f"tests/graphical/tmp/{fake.pyint()}.png"
 
@@ -61,7 +65,11 @@ def test_encode_graphical_save():
     os.remove(path)
 
 
-def test_encode_graphical_bytes():
+# =======================
+# =======================
+
+
+def test_encode_graphical_bytes1():
     message = "Salut"
 
     encoded = Ralgo(message).encode().graphical().encode()
@@ -72,8 +80,8 @@ def test_encode_graphical_bytes():
 
     assert img.size == (17, 17)
 
-    # =======================
 
+def test_encode_graphical_bytes2():
     message = fake.text()
 
     encoded = Ralgo(message).encode()

@@ -12,9 +12,12 @@ class Ralgo(Encoder, Decoder, Square):
     # noinspection PyMissingConstructor
     def __init__(
         self,
-        statement: Union[str, bytes, "Ralgo"],
+        statement: Union[str, bytes, "Ralgo", Square],
     ):
-        self.statement = statement
+        if isinstance(statement, (Ralgo, Square)):
+            self.statement = statement.statement
+        else:
+            self.statement = statement
 
     def __str__(self):
         return self.statement
@@ -42,14 +45,12 @@ class Ralgo(Encoder, Decoder, Square):
         chars: tuple = (".", ","),
         depth: int = None,
         bits: int = None,
-        is_bytes: bool = False,
     ) -> "Ralgo":
         self.statement = super().decode(
             message=self.statement,
             chars=chars,
             depth=depth,
             bits=bits,
-            is_bytes=is_bytes,
         )
 
         return self

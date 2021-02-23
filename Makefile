@@ -29,10 +29,10 @@ lint:
 
 .PHONY: test
 test:
-	pytest
+	pytest --durations=0
 
 .PHONY: coverage
 coverage:
-	coverage run -m pytest
+	coverage run -m pytest --durations=0
 	coverage report -m
 	coverage html

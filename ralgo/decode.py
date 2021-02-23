@@ -1,5 +1,5 @@
+import ast
 import re
-from base64 import b64decode
 from typing import Union
 
 import numpy as np
@@ -16,6 +16,17 @@ class Decoder:
 
     parts: list
     output: str
+
+    @staticmethod
+    def __eval_bytes(content: str) -> Union[str, bytes]:
+        try:
+            if (content.startswith('b"') and content.endswith('"')) or (
+                content.startswith("b'") and content.endswith("'")
+            ):
+                return ast.literal_eval(content)
+            return content
+        except Exception:  # pylint: disable=broad-except
+            return content
 
     def __get_depth(self) -> int:
         depth = 0
@@ -84,7 +95,6 @@ class Decoder:
         chars: tuple,
         depth: int,
         bits: int,
-        is_bytes: bool,
     ) -> str:
         self.message = message
         self.chars = clean_chars(chars)
@@ -98,8 +108,4 @@ class Decoder:
             self.__convert_layer(self.__fill_layers(word))
             self.output += " "
 
-        return (
-            b64decode(self.output.strip().encode())
-            if is_bytes
-            else self.output.strip()
-        )
+        return self.__eval_bytes(self.output.strip())

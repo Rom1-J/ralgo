@@ -1,4 +1,3 @@
-from base64 import b64encode
 from typing import Union
 
 import numpy as np
@@ -91,11 +90,8 @@ class Encoder:
             self.output += output
 
     def __load_message(self, message: Union[str, bytes]) -> str:
-        if isinstance(message, (str, int, float)):
+        if isinstance(message, (str, int, float, bytes)):
             self.message = str(message).replace(" ", chr(1))
-            return self.message
-        if isinstance(message, bytes):
-            self.message = b64encode(message).decode()
             return self.message
 
         raise InvalidArgument(

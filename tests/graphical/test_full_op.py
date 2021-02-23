@@ -14,14 +14,18 @@ def test_graphical_full_op():
     graphical = encoded.graphical().encode()
 
     arr = graphical.to_bytes()
-    decoded_graphical = str(Ralgo(arr).graphical().decode())
+    decoded_graphical = Ralgo(arr).graphical().decode()
 
     decoded = Ralgo(decoded_graphical).decode()
 
     assert str(decoded) == message
 
 
-def test_graphical_full_op_file():
+# =======================
+# =======================
+
+
+def test_graphical_full_op_file1():
     path = f"tests/graphical/tmp/{fake.pyint()}.png"
 
     with open("tests/graphical/files/qr.png", "rb") as f:
@@ -29,14 +33,14 @@ def test_graphical_full_op_file():
 
     Ralgo(message).encode().graphical().encode().save(path)
 
-    output = Ralgo(str(Ralgo(path).graphical().decode())).decode(is_bytes=True)
+    output = Ralgo(Ralgo(path).graphical().decode()).decode()
 
     assert bytes(output) == message
 
     os.remove(path)
 
-    # =======================
 
+def test_graphical_full_op_file2():
     path = f"tests/graphical/tmp/{fake.pyint()}.png"
 
     with open("tests/graphical/files/file.txt", "rb") as f:
@@ -44,7 +48,7 @@ def test_graphical_full_op_file():
 
     Ralgo(message).encode().graphical().encode().save(path)
 
-    output = Ralgo(str(Ralgo(path).graphical().decode())).decode(is_bytes=True)
+    output = Ralgo(Ralgo(path).graphical().decode()).decode()
 
     assert bytes(output) == message
 
