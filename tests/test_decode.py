@@ -29,6 +29,15 @@ def test_decode_basic3():
     assert str(decoded) == message
 
 
+def test_decode_basic4():
+    message = "slt"
+
+    encoded = Ralgo(message).encode()
+    decoded = encoded.decode()
+
+    assert str(decoded) == message
+
+
 # =======================
 # =======================
 

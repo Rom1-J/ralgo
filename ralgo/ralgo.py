@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, Optional
 
 from ralgo.decode import Decoder
 from ralgo.encode import Encoder
@@ -31,10 +31,10 @@ class Ralgo(Encoder, Decoder, Square):
     def encode(
         self,
         chars: tuple = (".", ","),
-        depth: int = None,
-        bits: int = None,
+        depth: Optional[int] = None,
+        bits: Optional[int] = None,
     ) -> "Ralgo":
-        self.statement = super().encode(
+        self.statement = super()._encode(
             message=self.statement, chars=chars, depth=depth, bits=bits
         )
 
@@ -43,11 +43,11 @@ class Ralgo(Encoder, Decoder, Square):
     def decode(
         self,
         chars: tuple = (".", ","),
-        depth: int = None,
-        bits: int = None,
+        depth: Optional[int] = None,
+        bits: Optional[int] = None,
     ) -> "Ralgo":
-        self.statement = super().decode(
-            message=self.statement,
+        self.statement = super()._decode(
+            message=str(self.statement),  # assuming the statement as a string
             chars=chars,
             depth=depth,
             bits=bits,
@@ -56,11 +56,29 @@ class Ralgo(Encoder, Decoder, Square):
         return self
 
     def compress(self) -> "Ralgo":
+        """Compress
+
+        Function called when we want the output as compressed
+
+        Returns
+        -------
+        Ralgo
+           Main instance
+        """
         self.statement = compressor.Compress().compress(self.statement)
 
         return self
 
     def decompress(self) -> "Ralgo":
+        """Decompress
+
+        Function called when we want the output as decompressed
+
+        Returns
+        -------
+        Ralgo
+           Main instance
+        """
         self.statement = compressor.Decompress().decompress(
             str(self.statement)
         )
@@ -68,4 +86,13 @@ class Ralgo(Encoder, Decoder, Square):
         return self
 
     def graphical(self) -> Square:
+        """Graphical
+
+        Function called when we want the output as graphical
+
+        Returns
+        -------
+        Square
+           Square instance
+        """
         return Square(statement=self.statement)

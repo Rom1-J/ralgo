@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, Optional
 
 import numpy as np
 import sympy as sp
@@ -28,10 +28,7 @@ class Encoder:
         return max([len(i) for i in self.letters])
 
     def __get_bits(self) -> int:
-        max_bits = np.amax(self.letters)
-        return int(
-            max(max_bits) if isinstance(max_bits, list) else max_bits
-        ).bit_length()
+        return int(np.amax(self.letters)).bit_length()
 
     def __gen_key(self) -> None:
         self.output = (
@@ -99,12 +96,12 @@ class Encoder:
             "float or bytes"
         )
 
-    def encode(
+    def _encode(
         self,
         message: Union[str, bytes],
         chars: tuple,
-        depth: int,
-        bits: int,
+        depth: Optional[int],
+        bits: Optional[int],
     ) -> str:
         self.message = self.__load_message(message)
         self.chars = clean_chars(chars)
@@ -112,9 +109,10 @@ class Encoder:
         self.__set_letters(self.message)
 
         self.depth = clean_depth(depth, self.__get_depth())
+        self.__fill_letters()
+
         self.bits = clean_bits(bits, self.__get_bits())
 
-        self.__fill_letters()
         self.__gen_key()
 
         for word in self.__fill_words():

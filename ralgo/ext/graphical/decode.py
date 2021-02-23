@@ -1,6 +1,6 @@
 import itertools
 from io import BytesIO
-from typing import Union, NoReturn
+from typing import Union
 
 from PIL import Image
 
@@ -13,14 +13,18 @@ class SquareDecoder:
     image: Image
     output: str
 
-    def __load_file(self) -> Union[tuple, NoReturn]:
+    def __load_file(self) -> tuple:
         if isinstance(self.file, str):
             self.image = Image.open(self.file)
+
             if self.image.size[0] == self.image.size[1]:
                 return self.image.size
+
             raise InvalidImage(message="The given image has an invalid size")
+
         if isinstance(self.file, bytes):
             self.image = Image.open(BytesIO(self.file))
+
             return self.image.size
 
         raise InvalidArgument(
@@ -31,6 +35,7 @@ class SquareDecoder:
     def __color2char(color):
         if sum(color) > 128:
             return ","
+
         return "."
 
     def decode(self, file: Union[str, bytes]) -> str:

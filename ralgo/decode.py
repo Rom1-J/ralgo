@@ -1,6 +1,6 @@
 import ast
 import re
-from typing import Union
+from typing import Union, Optional
 
 import numpy as np
 
@@ -46,11 +46,13 @@ class Decoder:
 
     def __cut_message(self) -> None:
         to_cut = self.depth + (self.bits * 2) + 1
+
         self.message = self.message[to_cut:]
         self.parts = re.findall("." * (self.bits + 1), self.message)
 
     def __fill_words(self) -> list[list]:
-        words, word = [[]], 0
+        words: list[list[str]] = [[]]
+        word = 0
         self.output = ""
 
         for part in self.parts:
@@ -68,7 +70,7 @@ class Decoder:
         return words[:-1]
 
     def __fill_layers(self, word: list[str]) -> np.ndarray:
-        layers = [[]]
+        layers: list[list[str]] = [[]]
         i = 0
 
         for element in word:
@@ -89,13 +91,13 @@ class Decoder:
             else:
                 raise DecodeError(message="Failed to decode one layer")
 
-    def decode(
+    def _decode(
         self,
-        message: Union[str, bytes],
+        message: str,
         chars: tuple,
-        depth: int,
-        bits: int,
-    ) -> str:
+        depth: Optional[int],
+        bits: Optional[int],
+    ) -> Union[str, bytes]:
         self.message = message
         self.chars = clean_chars(chars)
 

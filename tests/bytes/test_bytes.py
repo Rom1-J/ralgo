@@ -20,7 +20,6 @@ def test_convert_bytes():
     message = os.urandom(420)
 
     encoded = Ralgo(message).encode()
-    global decoded
     decoded = encoded.decode()
 
     assert bytes(decoded) == message

@@ -29,10 +29,14 @@ lint:
 
 .PHONY: test
 test:
-	pytest --durations=0
+	$(PYTHON_PATH) -m pytest --durations=0
+
+.PHONY: type
+type:
+	$(PYTHON_PATH) -m mypy ralgo
 
 .PHONY: coverage
 coverage:
-	coverage run -m pytest --durations=0
-	coverage report -m
-	coverage html
+	$(PYTHON_PATH) -m coverage run -m pytest --durations=0
+	$(PYTHON_PATH) -m coverage report -m
+	$(PYTHON_PATH) -m coverage html

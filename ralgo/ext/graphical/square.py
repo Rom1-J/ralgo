@@ -32,9 +32,13 @@ class Square(SquareEncoder, SquareDecoder):
         return self
 
     def to_bytes(self) -> bytes:
+        assert isinstance(self.statement, bytes)
+
         return self.statement
 
     def save(self, path: str) -> "SquareEncoder":
+        assert isinstance(self.statement, bytes)
+
         image = Image.open(BytesIO(self.statement))
         image.save(path)
 

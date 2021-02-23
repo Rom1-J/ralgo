@@ -28,6 +28,13 @@ def test_encode_basic3():
     assert len(encoded) == 268
 
 
+def test_encode_basic4():
+    message = fake.text()
+    _ = Ralgo(message).encode()
+
+    assert True
+
+
 # =======================
 # =======================
 
