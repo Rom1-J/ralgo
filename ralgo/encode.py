@@ -30,7 +30,7 @@ class Encoder:
     def __get_bits(self) -> int:
         max_bits = np.amax(self.letters)
         return int(
-            max_bits[0] if isinstance(max_bits, list) else max_bits
+            max(max_bits) if isinstance(max_bits, list) else max_bits
         ).bit_length()
 
     def __gen_key(self) -> None:
